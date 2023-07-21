@@ -1,4 +1,5 @@
 import Card from 'components/Card'
+import dateFormat from 'functions/dateFormat'
 import { Text, useColorMode, View } from 'native-base'
 import React from 'react'
 import { LineChart } from 'react-native-gifted-charts'
@@ -11,7 +12,7 @@ const buildData = (values: any) => {
     const data: any[] = [];
 
     values.filter((val: any) => val.calves.right !== 0).map((val: any) => data.push({
-        label: `${val.calves.right}`,
+        label: dateFormat(val.created_at, 'dd/MM'),
         value: val.calves.right,
         dataPointText: `${val.calves.right}`
     }))
