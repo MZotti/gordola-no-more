@@ -14,13 +14,13 @@ const ImportExport = () => {
 				<Button variant="solid" colorScheme="green" title='Salvar' >
 					<HStack space={2}>
 						<Download size={20} color="#FFF" />
-						<Text>Salvar</Text>
+						<Text color="white">Salvar</Text>
 					</HStack>
 				</Button>
 				<Button variant="solid" colorScheme="blue" title='Salvar' >
 					<HStack space={2}>
 						<Upload size={20} color="#FFF" />
-						<Text>Carregar</Text>
+						<Text color="white">Carregar</Text>
 					</HStack>
 				</Button>
 			</HStack>

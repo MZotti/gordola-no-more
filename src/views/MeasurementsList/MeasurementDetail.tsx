@@ -1,8 +1,10 @@
 import dateFormat from 'functions/dateFormat'
 import { imcValue } from 'functions/measurements'
 import { Measurements } from 'interfaces'
-import { Badge, Box, HStack, Text, VStack } from 'native-base'
+import { Actionsheet, Badge, Box, HStack, Text, useDisclose, VStack } from 'native-base'
+import { useState } from 'react'
 import { Pressable } from 'react-native'
+import DeleteMeasument from 'views/MeasurementsList/DeleteMeasument'
 
 interface Props {
     measurement: Measurements
@@ -10,9 +12,11 @@ interface Props {
 
 const MeasurementDetail = ({ measurement }: Props) => {
     const { label, color } = imcValue(measurement.imc)
+    const [isOpen, setIsOpen] = useState(false);
+    const { isOpen: modalOpen, onClose, onOpen } = useDisclose()
 
     return (
-        <Pressable onLongPress={() => console.log('oii')}>
+        <Pressable onLongPress={() => setIsOpen(true)} delayLongPress={200}>
             <Text fontSize="lg" fontWeight="bold">{dateFormat(measurement.created_at, "dd/MM/yyyy HH:mm:ss")}</Text>
             <VStack space={4}>
                 <HStack w="full" space={4} alignItems="center">
@@ -50,6 +54,13 @@ const MeasurementDetail = ({ measurement }: Props) => {
                     </VStack>
                 </HStack>
             </VStack>
+            <Actionsheet isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                <Actionsheet.Content>
+                    <Actionsheet.Item onPress={() => { setIsOpen(false); onOpen(); }}>Editar</Actionsheet.Item>
+                    <Actionsheet.Item onPress={() => { setIsOpen(false); onOpen(); }}>Remover</Actionsheet.Item>
+                </Actionsheet.Content>
+            </Actionsheet> 
+            <DeleteMeasument id={measurement.id} isOpen={modalOpen} onClose={onClose} />
         </Pressable>
     )
 }

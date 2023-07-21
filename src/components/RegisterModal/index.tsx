@@ -38,7 +38,7 @@ const RegisterModal = () => {
         const height = 173
         createMeasurements({
             ...data,
-            id: '1',
+            id: String(Math.floor(Math.random() * (99999 - 1) + 1)),
             height,
             imc: calculateIMC(height, data.weight),
             created_at: new Date(),
