@@ -16,7 +16,7 @@ import CalfChart from "views/ChartsList/charts/CalfChart"
 
 const ChartsList = () => {
     const [filter, setFilter] = useState(1)
-    const measurements = useSelector(({ measurements }: State) => measurements)
+    const measurements = useSelector(({ measurements }: State) => measurements).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
 
     return (
         <Container>

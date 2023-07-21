@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, HStack, Input, Modal } from 'native-base';
+import { Button, Flex, FormControl, HStack, Input, Modal, VStack } from 'native-base';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -58,96 +58,107 @@ const RegisterModal = () => {
                 <Modal.CloseButton />
                 <Modal.Header>Registrar Medidas</Modal.Header>
                 <Modal.Body maxW="full">
-                    <FormControl>
-                        <FormControl.Label>Peso (kg)</FormControl.Label>
-                        <Input
-                            type='number'
-                            placeholder='kg'
-                            value={data.weight}
-                            onChangeText={weight => setData({ ...data, weight: Number(weight) })}
-                        />
-                    </FormControl>
-                    <FormControl>
-                        <FormControl.Label>Peito (cm)</FormControl.Label>
-                        <Input
-                            type='number'
-                            placeholder='cm'
-                            value={data.chest}
-                            onChangeText={chest => setData({ ...data, chest })}
-                        />
-                    </FormControl>
-                    <FormControl>
-                        <FormControl.Label>Abdomen (cm)</FormControl.Label>
-                        <Input
-                            type='number'
-                            placeholder='cm'
-                            value={data.abdomen}
-                            onChangeText={abdomen => setData({ ...data, abdomen })}
-                        />
-                    </FormControl>
-                    <FormControl.Label>Bíceps (cm)</FormControl.Label>
-                    <Flex maxW="full" w="full">
+                    <VStack w="full" space={2}>
                         <FormControl>
-                            <FormControl.Label>Direito</FormControl.Label>
+                            <FormControl.Label>Peso (kg)</FormControl.Label>
                             <Input
                                 type='number'
-                                placeholder='cm'
-                                value={data.biceps.right}
-                                onChangeText={right => setData({ ...data, biceps: { left: data.biceps.left, right } })}
+                                keyboardType='numeric'
+                                placeholder='kg'
+                                value={data.weight}
+                                onChangeText={weight => setData({ ...data, weight: Number(weight) })}
                             />
                         </FormControl>
                         <FormControl>
-                            <FormControl.Label>Esquerdo</FormControl.Label>
+                            <FormControl.Label>Peito (cm)</FormControl.Label>
                             <Input
                                 type='number'
+                                keyboardType='numeric'
                                 placeholder='cm'
-                                value={data.biceps.left}
-                                onChangeText={left => setData({ ...data, biceps: { right: data.biceps.right, left } })}
+                                value={data.chest}
+                                onChangeText={chest => setData({ ...data, chest })}
                             />
                         </FormControl>
-                    </Flex>
-                    <FormControl.Label>Pernas (cm)</FormControl.Label>
-                    <Flex maxW="full" w="full">
                         <FormControl>
-                            <FormControl.Label>Direita</FormControl.Label>
+                            <FormControl.Label>Abdomen (cm)</FormControl.Label>
                             <Input
                                 type='number'
+                                keyboardType='numeric'
                                 placeholder='cm'
-                                value={data.legs.right}
-                                onChangeText={right => setData({ ...data, legs: { left: data.legs.left, right } })}
+                                value={data.abdomen}
+                                onChangeText={abdomen => setData({ ...data, abdomen })}
                             />
                         </FormControl>
-                        <FormControl>
-                            <FormControl.Label>Esquerda</FormControl.Label>
-                            <Input
-                                type='number'
-                                placeholder='cm'
-                                value={data.legs.left}
-                                onChangeText={left => setData({ ...data, legs: { right: data.legs.right, left } })}
-                            />
-                        </FormControl>
-                    </Flex>
-                    <FormControl.Label>Panturrilhas (cm)</FormControl.Label>
-                    <Flex maxW="full" w="full">
-                        <FormControl>
-                            <FormControl.Label>Direita</FormControl.Label>
-                            <Input 
-                                type='number' 
-                                placeholder='cm'
-                                value={data.calves.right} 
-                                onChangeText={right => setData({ ...data, calves: { left: data.calves.left, right } })} 
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <FormControl.Label>Esquerda</FormControl.Label>
-                            <Input 
-                                type='number' 
-                                placeholder='cm'
-                                value={data.calves.left} 
-                                onChangeText={left => setData({ ...data, calves: { right: data.calves.right, left } })} 
-                            />
-                        </FormControl>
-                    </Flex>
+                        <FormControl.Label>Bíceps (cm)</FormControl.Label>
+                        <HStack space={2} maxW="full" w="full">
+                            <FormControl w="1/2">
+                                <FormControl.Label>Direito</FormControl.Label>
+                                <Input
+                                    type='number'
+                                    keyboardType='numeric'
+                                    placeholder='cm'
+                                    value={data.biceps.right}
+                                    onChangeText={right => setData({ ...data, biceps: { left: data.biceps.left, right } })}
+                                />
+                            </FormControl>
+                            <FormControl w="1/2">
+                                <FormControl.Label>Esquerdo</FormControl.Label>
+                                <Input
+                                    type='number'
+                                    keyboardType='numeric'
+                                    placeholder='cm'
+                                    value={data.biceps.left}
+                                    onChangeText={left => setData({ ...data, biceps: { right: data.biceps.right, left } })}
+                                />
+                            </FormControl>
+                        </HStack>
+                        <FormControl.Label>Pernas (cm)</FormControl.Label>
+                        <HStack space={2} maxW="full" w="full">
+                            <FormControl w="1/2">
+                                <FormControl.Label>Direita</FormControl.Label>
+                                <Input
+                                    type='number'
+                                    keyboardType='numeric'
+                                    placeholder='cm'
+                                    value={data.legs.right}
+                                    onChangeText={right => setData({ ...data, legs: { left: data.legs.left, right } })}
+                                />
+                            </FormControl>
+                            <FormControl w="1/2">
+                                <FormControl.Label>Esquerda</FormControl.Label>
+                                <Input
+                                    type='number'
+                                    keyboardType='numeric'
+                                    placeholder='cm'
+                                    value={data.legs.left}
+                                    onChangeText={left => setData({ ...data, legs: { right: data.legs.right, left } })}
+                                />
+                            </FormControl>
+                        </HStack>
+                        <FormControl.Label>Panturrilhas (cm)</FormControl.Label>
+                        <HStack space={2} maxW="full" w="full">
+                            <FormControl w="1/2">
+                                <FormControl.Label>Direita</FormControl.Label>
+                                <Input
+                                    type='number'
+                                    keyboardType='numeric'
+                                    placeholder='cm'
+                                    value={data.calves.right}
+                                    onChangeText={right => setData({ ...data, calves: { left: data.calves.left, right } })}
+                                />
+                            </FormControl>
+                            <FormControl w="1/2">
+                                <FormControl.Label>Esquerda</FormControl.Label>
+                                <Input
+                                    type='number'
+                                    keyboardType='numeric'
+                                    placeholder='cm'
+                                    value={data.calves.left}
+                                    onChangeText={left => setData({ ...data, calves: { right: data.calves.right, left } })}
+                                />
+                            </FormControl>
+                        </HStack>
+                    </VStack>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button.Group space={2}>
@@ -158,7 +169,7 @@ const RegisterModal = () => {
                         >
                             Cancelar
                         </Button>
-                        <Button 
+                        <Button
                             colorScheme="green"
                             onPress={onSave}
                         >
