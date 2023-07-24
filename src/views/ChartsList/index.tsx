@@ -5,28 +5,30 @@ import { State } from 'state/reducers'
 import { useState } from "react"
 
 import LineChart from 'views/ChartsList/charts/LineChart'
+import { filterByDate } from 'functions/filterMeasurements'
 
 const ChartsList = () => {
-    const [filter, setFilter] = useState(1)
-    const measurements = useSelector(({ measurements }: State) => measurements).sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
+    const [filter, setFilter] = useState(30)
+    const measurements = useSelector(({ measurements }: State) => measurements)
+    const filteredMeasurements = filterByDate(measurements, filter)
 
     return (
         <Container>
             <Flex w="full" justifyContent="space-between" flexDirection="row" mb={4}>
-                <Button colorScheme="lightBlue" onPress={() => setFilter(1)} variant={filter == 1 ? 'solid' : 'outline'}><Text>30 Dias</Text></Button>
-                <Button colorScheme="lightBlue" onPress={() => setFilter(2)} variant={filter == 2 ? 'solid' : 'outline'}><Text>6 Meses</Text></Button>
-                <Button colorScheme="lightBlue" onPress={() => setFilter(3)} variant={filter == 3 ? 'solid' : 'outline'}><Text>1 Ano</Text></Button>
-                <Button colorScheme="lightBlue" onPress={() => setFilter(4)} variant={filter == 4 ? 'solid' : 'outline'}><Text>Todos</Text></Button>
+                <Button colorScheme="lightBlue" onPress={() => setFilter(30)} variant={filter == 30 ? 'solid' : 'outline'}><Text>30 Dias</Text></Button>
+                <Button colorScheme="lightBlue" onPress={() => setFilter(90)} variant={filter == 90 ? 'solid' : 'outline'}><Text>6 Meses</Text></Button>
+                <Button colorScheme="lightBlue" onPress={() => setFilter(365)} variant={filter == 365 ? 'solid' : 'outline'}><Text>1 Ano</Text></Button>
+                <Button colorScheme="lightBlue" onPress={() => setFilter(0)} variant={filter == 0 ? 'solid' : 'outline'}><Text>Todos</Text></Button>
             </Flex>
             <ScrollView w="full">
                 <VStack space={4} pb={12}>
-                    <LineChart label="Peso (kg)" values={measurements} segment="weight" />
-                    <LineChart label="IMC (kg/m²)" values={measurements} segment="imc" />
-                    <LineChart label="Bíceps (cm)" values={measurements} segment="biceps" isMultiple />
-                    <LineChart label="Peito (cm)" values={measurements} segment="chest" />
-                    <LineChart label="Abdomen (cm)" values={measurements} segment="abdomen" />
-                    <LineChart label="Pernas (cm)" values={measurements} segment="legs" isMultiple />
-                    <LineChart label="Panturrilhas (cm)" values={measurements} segment="calves" isMultiple />
+                    <LineChart label="Peso (kg)" values={filteredMeasurements} segment="weight" />
+                    <LineChart label="IMC (kg/m²)" values={filteredMeasurements} segment="imc" />
+                    <LineChart label="Bíceps (cm)" values={filteredMeasurements} segment="biceps" isMultiple />
+                    <LineChart label="Peito (cm)" values={filteredMeasurements} segment="chest" />
+                    <LineChart label="Abdomen (cm)" values={filteredMeasurements} segment="abdomen" />
+                    <LineChart label="Pernas (cm)" values={filteredMeasurements} segment="legs" isMultiple />
+                    <LineChart label="Panturrilhas (cm)" values={filteredMeasurements} segment="calves" isMultiple />
                 </VStack>
             </ScrollView>
         </Container>

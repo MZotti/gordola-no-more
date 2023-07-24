@@ -25,8 +25,17 @@ const initialState = {
     abdomen: 0
 }
 
+const curretMaxId = (values: any[]) => {
+    if(!values || values.length === 0) return '1'
+    const lastItem = values.sort((a, b) => Number(b.id) > Number(a.id) ? 1 : -1)[0]
+    const newId = Number(lastItem.id) + 1;
+
+    return String(newId);
+}
+
 const RegisterModal = () => {
     const dispatch = useDispatch()
+    const measurements = useSelector(({ measurements }: State) => measurements)
     const toEdit = useSelector(({ editMeasurements }: State) => editMeasurements)
     const register = useSelector(({ register }: State) => register)
 
@@ -44,7 +53,7 @@ const RegisterModal = () => {
         if (toEdit === null) {
             createMeasurements({
                 ...data,
-                id: String(Math.floor(Math.random() * (99999 - 1) + 1)),
+                id: curretMaxId(measurements),
                 height,
                 imc: calculateIMC(height, data.weight),
                 created_at: new Date(),
@@ -53,7 +62,7 @@ const RegisterModal = () => {
         } else {
             updateMeasurements({
                 ...data,
-                id: String(Math.floor(Math.random() * (99999 - 1) + 1)),
+                id: toEdit.id,
                 height,
                 imc: calculateIMC(height, data.weight),
                 created_at: new Date(),

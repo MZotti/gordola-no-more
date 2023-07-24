@@ -20,7 +20,7 @@ const MeasurementsList = () => {
                                 </Flex>
                             </Card>
                             :
-                            measurements?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map(mst => (
+                            measurements?.sort((a, b) => Number(b.id) > Number(a.id) ? 1 : -1).map(mst => (
                                 <Card key={`${mst.created_at}`}>
                                     <MeasurementDetail measurement={mst} />
                                 </Card>

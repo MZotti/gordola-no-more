@@ -7,7 +7,7 @@ const lineChart = (colorMode: ColorMode = 'light', maxValue: number = 220) => ({
     noOfSections: 4,
     initialSpacing: 25,
     thickness: 2,
-    dataPointsColor: 'blue',
+    dataPointsColor: colorMode == 'light' ? 'blue' : "lime",
     spacing: 80,
     textShiftY: -12,
     textShiftX: -5,
