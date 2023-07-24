@@ -4,16 +4,29 @@ import { Measurements } from 'interfaces'
 import { Actionsheet, Badge, Box, HStack, Text, useDisclose, VStack } from 'native-base'
 import { useState } from 'react'
 import { Pressable } from 'react-native'
+import { useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { State } from 'state/reducers';
+import { editMeasurementsCreators, measurementsCreators, registerCreators } from '../../state';
 import DeleteMeasument from 'views/MeasurementsList/DeleteMeasument'
+import { useDispatch } from 'react-redux'
 
 interface Props {
     measurement: Measurements
 }
 
 const MeasurementDetail = ({ measurement }: Props) => {
+    const dispatch = useDispatch()
+    const { openCloseRegister } = bindActionCreators(registerCreators, dispatch)
+    const { setMeasurements } = bindActionCreators(editMeasurementsCreators, dispatch)
     const { label, color } = imcValue(measurement.imc)
     const [isOpen, setIsOpen] = useState(false);
     const { isOpen: modalOpen, onClose, onOpen } = useDisclose()
+
+    const onEdit = () => {
+        setMeasurements(measurement)
+        openCloseRegister({ isOpen: true })
+    }
 
     return (
         <Pressable onLongPress={() => setIsOpen(true)} delayLongPress={200}>
@@ -24,7 +37,7 @@ const MeasurementDetail = ({ measurement }: Props) => {
                         <Text fontSize="lg">Peso: {measurement.weight}kg</Text>
                         <Text fontSize="lg">IMC: {measurement.imc}kg/m²</Text>
                     </VStack>
-                    <Badge height="8" colorScheme={color}>{label}</Badge>
+                    {measurement.imc !== 0 && <Badge height="8" colorScheme={color}>{label}</Badge>}
                 </HStack>
                 <HStack w="full" justifyContent="space-between" space={4}>
                     <VStack>
@@ -56,10 +69,10 @@ const MeasurementDetail = ({ measurement }: Props) => {
             </VStack>
             <Actionsheet isOpen={isOpen} onClose={() => setIsOpen(false)}>
                 <Actionsheet.Content>
-                    <Actionsheet.Item onPress={() => { setIsOpen(false); onOpen(); }}>Editar</Actionsheet.Item>
+                    <Actionsheet.Item onPress={() => { setIsOpen(false); onEdit(); }}>Editar</Actionsheet.Item>
                     <Actionsheet.Item onPress={() => { setIsOpen(false); onOpen(); }}>Remover</Actionsheet.Item>
                 </Actionsheet.Content>
-            </Actionsheet> 
+            </Actionsheet>
             <DeleteMeasument id={measurement.id} isOpen={modalOpen} onClose={onClose} />
         </Pressable>
     )

@@ -1,18 +1,10 @@
-import { LineChart } from "react-native-gifted-charts"
-import Card from 'components/Card'
 import Container from 'components/Container'
-import { Box, Button, Flex, ScrollView, Text, View, VStack } from 'native-base'
+import { Button, Flex, ScrollView, Text, VStack } from 'native-base'
 import { useSelector } from 'react-redux'
 import { State } from 'state/reducers'
 import { useState } from "react"
 
-import WeightChart from "views/ChartsList/charts/WeightChart"
-import IMCChart from "views/ChartsList/charts/IMCChart"
-import BicepsChart from "views/ChartsList/charts/BicepsChart"
-import ChestChart from "views/ChartsList/charts/ChestChart"
-import AbdomenChart from "views/ChartsList/charts/AbdomenChart"
-import LegChart from "views/ChartsList/charts/LegChart"
-import CalfChart from "views/ChartsList/charts/CalfChart"
+import LineChart from 'views/ChartsList/charts/LineChart'
 
 const ChartsList = () => {
     const [filter, setFilter] = useState(1)
@@ -28,13 +20,13 @@ const ChartsList = () => {
             </Flex>
             <ScrollView w="full">
                 <VStack space={4} pb={12}>
-                    <WeightChart values={measurements} />
-                    <IMCChart values={measurements} />
-                    <BicepsChart values={measurements} />
-                    <ChestChart values={measurements} />
-                    <AbdomenChart values={measurements} />
-                    <LegChart values={measurements} />
-                    <CalfChart values={measurements} />
+                    <LineChart label="Peso (kg)" values={measurements} segment="weight" />
+                    <LineChart label="IMC (kg/m²)" values={measurements} segment="imc" />
+                    <LineChart label="Bíceps (cm)" values={measurements} segment="biceps" isMultiple />
+                    <LineChart label="Peito (cm)" values={measurements} segment="chest" />
+                    <LineChart label="Abdomen (cm)" values={measurements} segment="abdomen" />
+                    <LineChart label="Pernas (cm)" values={measurements} segment="legs" isMultiple />
+                    <LineChart label="Panturrilhas (cm)" values={measurements} segment="calves" isMultiple />
                 </VStack>
             </ScrollView>
         </Container>

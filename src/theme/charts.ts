@@ -1,10 +1,10 @@
 import { ColorMode } from "native-base"
 
-const lineChart = (colorMode: ColorMode = 'light') => ({
+const lineChart = (colorMode: ColorMode = 'light', maxValue: number = 220) => ({
     startIndex: 0,
-    maxValue: 120,
-    minValue: 65,
-    noOfSections: 5,
+    maxValue: maxValue,
+    minValue: 0,
+    noOfSections: 4,
     initialSpacing: 25,
     thickness: 2,
     dataPointsColor: 'blue',

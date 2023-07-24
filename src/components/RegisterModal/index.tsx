@@ -1,5 +1,5 @@
 import { Button, Flex, FormControl, HStack, Input, Modal, VStack } from 'native-base';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -27,23 +27,39 @@ const initialState = {
 
 const RegisterModal = () => {
     const dispatch = useDispatch()
+    const toEdit = useSelector(({ editMeasurements }: State) => editMeasurements)
     const register = useSelector(({ register }: State) => register)
 
-    const { createMeasurements } = bindActionCreators(measurementsCreators, dispatch)
+    const { createMeasurements, updateMeasurements } = bindActionCreators(measurementsCreators, dispatch)
     const { openCloseRegister } = bindActionCreators(registerCreators, dispatch)
 
     const [data, setData] = useState(initialState);
 
+    useEffect(() => {
+        if (toEdit && toEdit !== null) setData(toEdit)
+    }, [toEdit])
+
     const onSave = () => {
         const height = 173
-        createMeasurements({
-            ...data,
-            id: String(Math.floor(Math.random() * (99999 - 1) + 1)),
-            height,
-            imc: calculateIMC(height, data.weight),
-            created_at: new Date(),
-            updated_at: new Date(),
-        })
+        if (toEdit === null) {
+            createMeasurements({
+                ...data,
+                id: String(Math.floor(Math.random() * (99999 - 1) + 1)),
+                height,
+                imc: calculateIMC(height, data.weight),
+                created_at: new Date(),
+                updated_at: new Date(),
+            })
+        } else {
+            updateMeasurements({
+                ...data,
+                id: String(Math.floor(Math.random() * (99999 - 1) + 1)),
+                height,
+                imc: calculateIMC(height, data.weight),
+                created_at: new Date(),
+                updated_at: new Date(),
+            })
+        }
         onClose()
     }
 

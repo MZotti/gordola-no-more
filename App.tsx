@@ -9,7 +9,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Provider } from "react-redux";
 
 import Navigator from "./src/Navigator";
-import RegisterModal from "./src/components/RegisterModal";
 
 const colorModeManager: StorageManager = {
     get: async () => {
@@ -37,7 +36,6 @@ export default function App() {
             <NativeBaseProvider colorModeManager={colorModeManager}>
                 <SafeAreaView style={styles.container} >
                     <Navigator />
-                    <RegisterModal />
                 </SafeAreaView>
             </NativeBaseProvider>
         </Provider>

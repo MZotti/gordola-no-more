@@ -33,7 +33,7 @@ const IMCChart = ({ values }: any) => {
                     <ChartBox>
                         <LineChart
                             data={buildData(values)}
-                            {...lineChart(colorMode)}
+                            {...lineChart(colorMode, 80)}
                         />
                     </ChartBox>
             }

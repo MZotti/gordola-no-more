@@ -11,11 +11,15 @@ import Configurations from 'views/Configurations';
 import { measurementsCreators, registerCreators } from './state';
 import { useEffect } from 'react';
 import { getMeasurements } from 'functions/storage';
+import RegisterModal from 'components/RegisterModal';
+import { useSelector } from 'react-redux';
+import { State } from 'state/reducers';
 
 const Tab = createBottomTabNavigator();
 
 export default function Navigator() {
 	const dispatch = useDispatch()
+    const register = useSelector(({ register }: State) => register)
 	const { openCloseRegister } = bindActionCreators(registerCreators, dispatch)
 	const { listMeasurements } = bindActionCreators(measurementsCreators, dispatch)
 	const { colorMode } = useColorMode();
@@ -44,7 +48,6 @@ export default function Navigator() {
 	useEffect(() => {
 		const loadMeasurements = async () => {
 			const measurements = await getMeasurements()
-			console.log('>>', measurements)
 			if (measurements && measurements.length > 0) listMeasurements(measurements)
 		}
 		loadMeasurements()
@@ -141,6 +144,7 @@ export default function Navigator() {
 					/>
 				</Tab.Navigator>
 			</NavigationContainer>
+			{register.isOpen && <RegisterModal />}
 		</>
 	);
 }

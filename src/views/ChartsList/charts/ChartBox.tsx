@@ -12,6 +12,7 @@ const ChartBox = ({ children }: Props) => {
             style={{
                 marginLeft: 10,
                 backgroundColor: 'transparent',
+                paddingTop: 20,
                 paddingBottom: 12,
             }}>
             {children}

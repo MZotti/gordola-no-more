@@ -33,7 +33,7 @@ const WeightChart = ({ values }: any) => {
                     <ChartBox>
                         <LineChart
                             data={buildData(values)}
-                            {...lineChart(colorMode)}
+                            {...lineChart(colorMode, 220)}
                         />
                     </ChartBox>
             }

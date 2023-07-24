@@ -1,7 +1,7 @@
 import {format as fnsFormat} from "date-fns"
 import ptBR from "date-fns/locale/pt-BR"
 
-type Formats = "dd/MM/yyyy" | "dd/MM/yyyy HH:mm:ss" | "dd/MM"
+type Formats = "dd/MM/yyyy" | "dd/MM/yyyy HH:mm:ss" | "dd/MM" | string
 
 const dateFormat = (value: string | Date, format: Formats = "dd/MM/yyyy"): string | null => {
     if (!value) return value;
